@@ -91,8 +91,8 @@ export const likePost = async (req, res) => {
       type: "like",
       post: post._id
     });
-
-    res.status(200).json({ message: "post liked successfully" });
+    const updatedPost = await Post.findById(id).populate("user", "name email profilePic");
+    res.status(200).json({ message: "post liked successfully",post: updatedPost });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -239,12 +239,8 @@ export const addComment = async (req, res) => {
         post: post._id
       });
     }
-
-    return res.status(201).json({
-      message: "Comment added successfully",
-      comment: newComment,
-      commentCount: post.comments.length
-    });
+    const updatedPost = await Post.findById(id).populate("user", "name email profilePic");
+    return res.status(201).json({ message: "Comment added successfully", post: updatedPost });
 
   } catch (error) {
     console.error("addComment error:", error);

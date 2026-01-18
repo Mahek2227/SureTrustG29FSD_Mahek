@@ -21,9 +21,11 @@ const httpServer = http.createServer(app);
 /* ---------- Socket.IO ---------- */
 const io = new Server(httpServer, {
   cors: {
-    origin: "*",
+    origin: ["https://suretrustg29fsd-mahek-frontend.onrender.com"], // frontend URL
+    credentials: true
   },
 });
+
 
 io.on("connection", (socket) => {
   console.log("Socket connected:", socket.id);
@@ -72,7 +74,10 @@ io.on("connection", (socket) => {
 });
 
 /* ---------- Middlewares ---------- */
-app.use(cors());
+app.use(cors({
+  origin: ["https://suretrustg29fsd-mahek-frontend.onrender.com"], // frontend URL
+  credentials: true
+}));
 app.use(express.json());
 
 /* ---------- Routes ---------- */
