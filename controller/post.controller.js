@@ -98,6 +98,8 @@ export const likePost = async (req, res) => {
   }
 };
 
+
+
 export const getMyPosts = async (req, res) => {
   try {
     const userId = req.user._id;
@@ -287,6 +289,23 @@ export const restorePost = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+export const getLikedPosts = async (req, res) => {
+  try {
+    const userId = req.user._id;
+
+    const posts = await Post.find({
+      likes: userId,
+      isDeleted: false
+    })
+      .populate("user", "name email profilePic") // use 'name' not 'username'
+      .sort({ createdAt: -1 });
+
+    res.status(200).json({ posts });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 
 export const getFeedPost = async (req, res) => {
   try {
