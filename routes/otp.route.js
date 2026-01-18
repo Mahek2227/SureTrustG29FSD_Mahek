@@ -2,11 +2,11 @@ import express from "express";
 import {
   createOTP,
   changePasswordWithOTP,
-} from "../controller/otp.controller.js";
+} from "../controllers/otp.controller.js";
 
 const router = express.Router();
 
-router.post("/otp", createOTP);
-router.post("/verify-otp", changePasswordWithOTP);
+router.post("/send", createOTP);
+router.post("/verify", changePasswordWithOTP);
 
 export default router;

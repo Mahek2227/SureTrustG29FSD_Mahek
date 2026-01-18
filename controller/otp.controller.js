@@ -10,6 +10,8 @@ dotenv.config();
 const salt = bcrypt.genSaltSync(10);
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+
+
 /* ================= CREATE OTP ================= */
 export const createOTP = async (req, res) => {
   try {
