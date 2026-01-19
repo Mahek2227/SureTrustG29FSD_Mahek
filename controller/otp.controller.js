@@ -1,6 +1,7 @@
 import { sendOTPEmail } from "../utility/emailService.js";
 import User from "../schemas/User.schema.js";
 import OTP from "../schemas/otp.schema.js";
+import bcrypt from "bcryptjs"; 
 
 /* ================= SEND OTP ================= */
 export const sendOtp = async (req, res) => {
@@ -55,6 +56,8 @@ export const verifyOtp = async (req, res) => {
     }
 
     // ⚠️ HASH PASSWORD IN REAL PROJECT
+       const salt = bcrypt.genSaltSync(10);
+    const hashedPassword = bcrypt.hashSync(newPassword, salt);
     user.password = newPassword;
     await user.save();
 
