@@ -27,4 +27,6 @@ const otpSchema = new mongoose.Schema({
 });
 
 // TTL index will delete the document after 30 minutes
-export const OTP = mongoose.model("OTP", otpSchema);
+const OTP = mongoose.models.OTP || mongoose.model("OTP", otpSchema);
+
+export default OTP;
