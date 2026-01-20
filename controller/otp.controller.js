@@ -58,7 +58,7 @@ export const verifyOtp = async (req, res) => {
     // ⚠️ HASH PASSWORD IN REAL PROJECT
        const salt = bcrypt.genSaltSync(10);
     const hashedPassword = bcrypt.hashSync(newPassword, salt);
-    user.password = newPassword;
+    user.password = hashedPassword;
     await user.save();
 
     // ✅ DELETE OTP AFTER USE
