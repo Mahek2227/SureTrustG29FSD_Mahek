@@ -1,3 +1,4 @@
+import dotenv from "dotenv";
 import express from "express";
 import http from "http";
 import cors from "cors";
@@ -14,6 +15,7 @@ import chatRouter from "./routes/chat.route.js";
 import chatSchema from "./schemas/chat.schema.js";
 import { isFriend } from "./utility/isFriend.js";
 // import { JsonWebTokenError } from "jsonwebtoken";
+dotenv.config();
 
 const app = express();
 const httpServer = http.createServer(app);
