@@ -25,6 +25,7 @@ const io = new Server(httpServer, {
   cors: {
     origin: [
       "http://localhost:5173",
+      "http://localhost:5174", 
       "https://suretrustg29fsd-mahek-frontend.onrender.com"
     ],
     credentials: true
@@ -36,9 +37,9 @@ io.on("connection", (socket) => {
   console.log("Socket connected:", socket.id);
 
   socket.on("setup", (token) => {
-    const decoded = jwt.verify(token, "prasanna");
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
     
-        const userId = decoded.userId; // ✔ correct
+        const userId = decoded.userId; //✔ correct
     socket.join(userId);
     socket.userId = userId;
     console.log("User joined room:", userId);
@@ -46,9 +47,9 @@ io.on("connection", (socket) => {
 
   socket.on("send_message", async ({ from, to, message, imageUrl }) => {
     try {
-        const decoded = jwt.verify(from, "prasanna");
+       // const decoded = jwt.verify(from, process.env.JWT_SECRET);
     
-        const userId = decoded.userId; // ✔ correct
+       // const userId = decoded.userId; // ✔ correct
       const allowed = await isFriend(userId, to);
       if (!allowed) return;
 
@@ -82,6 +83,7 @@ io.on("connection", (socket) => {
 app.use(cors({
   origin: [
     "http://localhost:5173",
+    "http://localhost:5174", 
     "https://suretrustg29fsd-mahek-frontend.onrender.com"
   ],
   credentials: true,
